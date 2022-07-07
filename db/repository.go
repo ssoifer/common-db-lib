@@ -16,13 +16,6 @@ type databaseRepository struct {
 	con *sql.DB
 }
 
-//func GMin[T constraints.Ordered](x, y T, error) T {
-//	if x < y {
-//		return x
-//	}
-//	return y
-//}
-
 const (
 	repositoryTableName = "task"
 	insertFields        = " id, content, title, views, timestamp "
@@ -51,122 +44,46 @@ func NewRepository() (*databaseRepository, error) {
 	return &databaseRepository{connection}, nil
 }
 
-//func (repo *databaseRepository) Update(ctx context.Context, input generatedModel.TaskInput) (model *generatedModel.Task, err error) {
-//	//TODO: update below print statement with database persist functionality
-//	return nil, err
-//}
-//
-//func (repo *databaseRepository) GetList() (model []dbModel.Task, _ error) {
-//	baseQuery := fmt.Sprintf("SELECT %s FROM %s ", returnFields, repositoryTableName)
-//
-//	var rows *sql.Rows
-//	var err error = nil
-//	listQuery := fmt.Sprintf(baseQuery)
-//	rows, err = repo.con.Query(listQuery)
-//	if err != nil {
-//		return []dbModel.Task{}, err
-//	}
-//
-//	var list []dbModel.Task
-//	for rows.Next() {
-//		var taskItem dbModel.Task
-//		err := rows.Scan(&taskItem.ID, &taskItem.Title, &taskItem.Content, &taskItem.Views, &taskItem.Timestamp)
-//		if err != nil {
-//			return []dbModel.Task{}, err
-//		}
-//		list = append(list, taskItem)
-//	}
-//	if err = rows.Err(); err != nil {
-//		return []dbModel.Task{}, err
-//	}
-//	return list, nil
-//}
-//
-//func (repo *databaseRepository) GetById(ctx context.Context, id int) (model *dbModel.Task, err error) {
-//	//TODO: update below print statement with database persist functionality
-//	return nil, err
-//}
-//
-//func (repo *databaseRepository) GetByQuery(queryInputMap map[string]string) ([]dbModel.Task, error) {
-//
-//	baseQuery := ""
-//	logicalOperator := queryInputMap["logical_operator"]
-//
-//	var queryFields [2]string
-//	var queryValues [2]string
-//	var comparisonValues [2]string
-//
-//	if logicalOperator != "" {
-//
-//		comparisonoperator1 := queryInputMap["comparison_operator_1"]
-//		comparisonoperator2 := queryInputMap["comparison_operator_2"]
-//
-//		queryFields[0] = strings.Trim(strings.Trim(regexp.MustCompile(`\((.*?)\,+`).FindString(comparisonoperator1), "("), ",")
-//		queryValues[0] = strings.Trim(strings.Trim(regexp.MustCompile(`\,(.*?)\)+`).FindString(comparisonoperator1), ","), ")")
-//		queryFields[1] = strings.Trim(strings.Trim(regexp.MustCompile(`\((.*?)\,+`).FindString(comparisonoperator2), "("), ",")
-//		queryValues[1] = strings.Trim(strings.Trim(regexp.MustCompile(`\,(.*?)\)+`).FindString(comparisonoperator2), ","), ")")
-//
-//		firstOperator := regexp.MustCompile(`^[^\(]+`).FindString(comparisonoperator1)
-//		secondOperator := regexp.MustCompile(`^[^\(]+`).FindString(comparisonoperator2)
-//
-//		switch firstOperator {
-//
-//		case "EQUAL":
-//			comparisonValues[0] = "="
-//		case "GREATER_THAN":
-//			comparisonValues[0] = ">"
-//		case "LESS_THAN":
-//			comparisonValues[0] = "<"
-//		}
-//
-//		switch secondOperator {
-//
-//		case "EQUAL":
-//			comparisonValues[1] = "="
-//		case "GREATER_THAN":
-//			comparisonValues[1] = ">"
-//		case "LESS_THAN":
-//			comparisonValues[1] = "<"
-//		}
-//
-//		baseQuery = fmt.Sprintf("SELECT %s FROM %s WHERE %s%s $1 %s %s%s $2;", returnFields, repositoryTableName, queryFields[0], comparisonValues[0], logicalOperator, queryFields[1], comparisonValues[1])
-//	} else {
-//		baseQuery = fmt.Sprintf("SELECT %s FROM %s WHERE %s%s $1", returnFields, repositoryTableName, queryFields[0], comparisonValues[0])
-//
-//	}
-//
-//	var rows *sql.Rows
-//	var err error = nil
-//
-//	listQuery := fmt.Sprintf(baseQuery)
-//
-//	if len(queryValues) == 2 {
-//		rows, err = repo.con.Query(listQuery, queryValues[0], queryValues[1])
-//	} else {
-//		rows, err = repo.con.Query(listQuery, queryValues[0])
-//	}
-//
-//	if err != nil {
-//		return []dbModel.Task{}, err
-//	}
-//
-//	log.Print(rows)
-//
-//	var list []dbModel.Task
-//	for rows.Next() {
-//		var taskItem dbModel.Task
-//		err := rows.Scan(&taskItem.ID, &taskItem.Title, &taskItem.Content, &taskItem.Views, &taskItem.Timestamp)
-//		if err != nil {
-//			return []dbModel.Task{}, err
-//		}
-//		list = append(list, taskItem)
-//	}
-//	if err = rows.Err(); err != nil {
-//		return []dbModel.Task{}, err
-//	}
-//	return list, nil
-//}
-//
+func (repo *databaseRepository) Save(any) (dbModel *any, err error) {
+	//TODO: update below print statement with database persist functionality
+	return nil, err
+}
+
+func (repo *databaseRepository) Update(any) (dbModel *any, err error) {
+	//TODO: update below print statement with database persist functionality
+	return nil, err
+}
+
+func (repo *databaseRepository) GetList() (dbModelList []any, err error) {
+	//	baseQuery := fmt.Sprintf("SELECT %s FROM %s ", returnFields, repositoryTableName)
+	//
+	//	var rows *sql.Rows
+	//	var err error = nil
+	//	listQuery := fmt.Sprintf(baseQuery)
+	//	rows, err = repo.con.Query(listQuery)
+	//	if err != nil {
+	//		return []dbModel.Task{}, err
+	//	}
+	//
+	//	var list []dbModel.Task
+	//	for rows.Next() {
+	//		var taskItem dbModel.Task
+	//		err := rows.Scan(&taskItem.ID, &taskItem.Title, &taskItem.Content, &taskItem.Views, &taskItem.Timestamp)
+	//		if err != nil {
+	//			return []dbModel.Task{}, err
+	//		}
+	//		list = append(list, taskItem)
+	//	}
+	//	if err = rows.Err(); err != nil {
+	//		return []dbModel.Task{}, err
+	//	}
+	return nil, nil
+}
+
+func (repo *databaseRepository) GetById(any) (dbModel any, err error) {
+	//TODO: update below print statement with database persist functionality
+	return nil, err
+}
 
 func parseEnv() Config {
 	dbHost := os.Getenv("DB-HOST")
