@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 )
@@ -24,10 +23,6 @@ const (
 )
 
 func NewRepository() (*databaseRepository, error) {
-	err := godotenv.Load(".env")
-	if err == nil {
-
-	}
 	ctx := context.Background()
 	config := &Config{}
 	*config = parseEnv()
