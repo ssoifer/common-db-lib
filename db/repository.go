@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -54,30 +55,59 @@ func (repo *databaseRepository) Update(any) (dbModel *any, err error) {
 	return nil, err
 }
 
-func (repo *databaseRepository) GetList() (dbModelList []any, err error) {
+//func GenericSelect(database string, table string, columns []string, result interface{}) interface{} {
+//	dbMap := getDBConnection(database)
+//	defer dbMap.Db.Close()
+//	var err error
+//	query := "SELECT "
+//
+//	for index, element := range columns {
+//		query += element
+//		if index+1 != len(columns) {
+//			query += ","
+//		}
+//	}
+//	query += " FROM " + table + " LIMIT 1,100"
+//	_, err = dbMap.Select(result, query)
+//	if err != nil {
+//		panic(err.Error()) // Just for example purpose.
+//	}
+//	return result
+//}
+
+func (repo *databaseRepository) GetList(columns []string, table string) (dbModelList []interface{}, err error) {
 	//	baseQuery := fmt.Sprintf("SELECT %s FROM %s ", returnFields, repositoryTableName)
-	//
-	//	var rows *sql.Rows
-	//	var err error = nil
-	//	listQuery := fmt.Sprintf(baseQuery)
-	//	rows, err = repo.con.Query(listQuery)
-	//	if err != nil {
-	//		return []dbModel.Task{}, err
-	//	}
-	//
-	//	var list []dbModel.Task
-	//	for rows.Next() {
-	//		var taskItem dbModel.Task
-	//		err := rows.Scan(&taskItem.ID, &taskItem.Title, &taskItem.Content, &taskItem.Views, &taskItem.Timestamp)
-	//		if err != nil {
-	//			return []dbModel.Task{}, err
-	//		}
-	//		list = append(list, taskItem)
-	//	}
-	//	if err = rows.Err(); err != nil {
-	//		return []dbModel.Task{}, err
-	//	}
-	return nil, nil
+
+	query := "SELECT "
+
+	for index, element := range columns {
+		query += element
+		if index+1 != len(columns) {
+			query += ","
+		}
+	}
+	query += " FROM " + table + " LIMIT 1,100"
+
+	var rows *sql.Rows
+	listQuery := fmt.Sprintf(query)
+	rows, err = repo.con.Query(listQuery)
+	if err != nil {
+		return dbModelList, err
+	}
+
+	var list []interface{}
+	for rows.Next() {
+		var item interface{}
+		err := rows.Scan(&item)
+		if err != nil {
+			return dbModelList, err
+		}
+		list = append(list, item)
+	}
+	if err = rows.Err(); err != nil {
+		return dbModelList, err
+	}
+	return list, nil
 }
 
 func (repo *databaseRepository) GetById(any) (dbModel any, err error) {

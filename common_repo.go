@@ -12,7 +12,7 @@ import "github.com/ssoifer/common-db-lib/db"
 type CommonRepository interface {
 	Save(any) (dbModel *any, err error)
 	Update(any) (dbModel *any, err error)
-	GetList() (dbModelList []any, err error)
+	GetList(columns []string, table string) (dbModelList []interface{}, err error)
 	GetById(any) (dbModel any, err error)
 }
 
