@@ -204,7 +204,7 @@ func openConnection(dbConfig Config) (*sql.DB, error) {
 		log.Print(ctx, err, "Can't ping server")
 		return nil, errors.New("can't ping server")
 	}
-	return nil, nil
+	return db, nil
 }
 
 func connect(db *sql.DB, dbConfig Config) (*sql.DB, error) {
