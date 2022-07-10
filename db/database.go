@@ -9,7 +9,6 @@ import (
 	"github.com/golang-migrate/migrate/database"
 	"github.com/golang-migrate/migrate/database/postgres"
 	"log"
-	"os"
 	"reflect"
 	"strconv"
 	"time"
@@ -26,14 +25,13 @@ const (
 
 // Config holds the configuration used for instantiating a new postgres.
 type Config struct {
-	Host     string
-	Port     string
-	User     string
-	Password string
-	Database string
+	Host       string
+	Port       string
+	User       string
+	Password   string
+	Database   string
+	DriverName string
 }
-
-var driverName = os.Getenv("DRIVER-NAME")
 
 func NewDatabase(dbConfig Config) (*sql.DB, error) {
 	ctx := context.Background()
@@ -54,7 +52,7 @@ func Migrate(db *sql.DB, config Config) error {
 	ctx := context.Background()
 	var driver database.Driver
 	var err error
-	switch driverName {
+	switch config.DriverName {
 
 	case "postgres":
 		driver, err = postgres.WithInstance(db, &postgres.Config{})
@@ -194,10 +192,7 @@ func waitForDatabase(dbConfig Config, timeout int) (*sql.DB, error) {
 //
 func openConnection(dbConfig Config) (*sql.DB, error) {
 	ctx := context.Background()
-	if driverName == "" {
-		//error - missing env var
-	}
-	db, err := sql.Open(driverName, fmt.Sprintf(
+	db, err := sql.Open(dbConfig.DriverName, fmt.Sprintf(
 		"user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
 		dbConfig.User, dbConfig.Password, dbConfig.Database, dbConfig.Host, dbConfig.Port))
 	if err != nil {

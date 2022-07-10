@@ -116,14 +116,16 @@ func parseEnv() Config {
 	dbUser := os.Getenv("DB-USER")
 	dbPassword := os.Getenv("DB-PASSWORD")
 	database := os.Getenv("DATABASE")
-	if dbHost == "" && dbPort == "" && dbUser == "" && dbPassword == "" && database == "" {
+	driverName := os.Getenv("DRIVER-NAME")
+	if dbHost == "" && dbPort == "" && dbUser == "" && dbPassword == "" && database == "" && driverName == "" {
 		//error - missing env vars
 	}
 	return Config{
-		Host:     dbHost,
-		Port:     dbPort,
-		User:     dbUser,
-		Password: dbPassword,
-		Database: database,
+		Host:       dbHost,
+		Port:       dbPort,
+		User:       dbUser,
+		Password:   dbPassword,
+		Database:   database,
+		DriverName: driverName,
 	}
 }
